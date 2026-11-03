@@ -1,0 +1,66 @@
+<div class="dialog-backdrop" dir="rtl" (click)="cancelled.emit()">
+  <section
+    class="contact-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="add-contact-title"
+    (click)="$event.stopPropagation()"
+  >
+    <header class="dialog-header">
+      <div>
+        <p class="eyebrow">אנשי הקשר שלך</p>
+        <h2 id="add-contact-title">הוספת איש קשר חדש</h2>
+        <p class="dialog-description">מלאו את הפרטים כדי להוסיף איש קשר לרשימה.</p>
+      </div>
+      <button class="close-button" type="button" aria-label="סגירה" (click)="cancelled.emit()">×</button>
+    </header>
+
+    <form (ngSubmit)="save()">
+      <label>
+        שם מלא
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="contact.name"
+          autocomplete="name"
+          placeholder="לדוגמה: נועה לוי"
+          required
+        />
+      </label>
+
+      <label>
+        כתובת מייל
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="contact.email"
+          autocomplete="email"
+          placeholder="name@example.com"
+          required
+        />
+      </label>
+
+      <label>
+        מספר טלפון
+        <input
+          type="tel"
+          name="phone"
+          [(ngModel)]="contact.phone"
+          autocomplete="tel"
+          placeholder="050-123-4567"
+          required
+        />
+      </label>
+
+      <label class="vip-option">
+        <input type="checkbox" name="vip" [(ngModel)]="contact.vip" />
+        <span>איש קשר VIP</span>
+      </label>
+
+      <div class="form-actions">
+        <button class="cancel-button" type="button" (click)="cancelled.emit()">ביטול</button>
+        <button class="save-button" type="submit">שמירת איש קשר</button>
+      </div>
+    </form>
+  </section>
+</div>

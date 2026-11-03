@@ -1,1 +1,123 @@
-<input type="text" placeholder="Enter user name"><input>
+<main class="contacts-page" dir="rtl">
+  <div class="page-shell">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">האנשים שלך, במקום אחד</p>
+        <h1>אנשי קשר</h1>
+        <p class="subtitle">כל האנשים החשובים לך, תמיד בהישג יד.</p>
+      </div>
+      <button class="add-contact" type="button" aria-label="הוספת איש קשר" (click)="isAddingContact = true">
+        <span aria-hidden="true">+</span>
+        איש קשר חדש
+      </button>
+    </header>
+
+    <section class="contacts-panel" aria-label="רשימת אנשי קשר">
+      <div class="panel-top">
+        <div>
+          <h2>רשימת הדיוור שלך</h2>
+          <p class="contact-count">{{ filteredContacts.length }} אנשי קשר</p>
+        </div>
+
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10.8" cy="10.8" r="6.8"></circle>
+            <path d="m16 16 4.5 4.5"></path>
+          </svg>
+          <input
+            type="search"
+            placeholder="חיפוש לפי שם, מייל או טלפון..."
+            aria-label="חיפוש אנשי קשר"
+            (input)="updateSearch($event)"
+          />
+        </label>
+      </div>
+
+      <div class="filters" aria-label="סינון אנשי קשר">
+        @for (filter of filters; track filter.value) {
+          <button
+            class="filter-chip"
+            [class.selected]="activeFilter === filter.value"
+            [attr.aria-pressed]="activeFilter === filter.value"
+            type="button"
+            (click)="setFilter(filter.value)"
+          >
+            {{ filter.label }}
+          </button>
+        }
+      </div>
+
+      @if (filteredContacts.length > 0) {
+        <div class="contact-grid">
+          @for (contact of filteredContacts; track contact.id) {
+            <article class="contact-card">
+              <div class="card-heading">
+                <div
+                  class="avatar"
+                  [style.background-color]="contact.color"
+                  [attr.aria-label]="'ראשי התיבות של ' + contact.name"
+                  role="img"
+                >
+                  {{ contact.initials }}
+                </div>
+                <button
+                  class="vip-toggle"
+                  [class.is-vip]="contact.vip"
+                  type="button"
+                  [attr.aria-pressed]="contact.vip"
+                  [attr.aria-label]="contact.vip ? 'הסרה מרשימת VIP: ' + contact.name : 'הוספה לרשימת VIP: ' + contact.name"
+                  (click)="toggleVip(contact)"
+                >
+                  <span aria-hidden="true">{{ contact.vip ? '★' : '☆' }}</span>
+                  {{ contact.vip ? 'VIP' : 'רגיל' }}
+                </button>
+              </div>
+
+              <div class="contact-info">
+                <h3>{{ contact.name }}</h3>
+              </div>
+
+              <div class="contact-details">
+                <a [href]="'mailto:' + contact.email">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="3"></rect>
+                    <path d="m4 7 8 6 8-6"></path>
+                  </svg>
+                  <span>{{ contact.email }}</span>
+                </a>
+                <a [href]="'tel:' + contact.phone">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 3h3l2 5-2.2 1.7a15 15 0 0 0 4.5 4.5L16 12l5 2v3c0 1.1-.9 2-2 2C10.7 19 5 13.3 5 6c0-1.7.7-3 2-3Z"></path>
+                  </svg>
+                  <span>{{ contact.phone }}</span>
+                </a>
+              </div>
+
+              <div class="card-footer">
+                <a class="message-link" [href]="'mailto:' + contact.email" [attr.aria-label]="'שליחת מייל ל' + contact.name">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 3 10.5 13.5"></path>
+                    <path d="m21 3-6.7 18-3.8-7.5L3 9.7 21 3Z"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <span class="empty-icon" aria-hidden="true">⌕</span>
+          <h3>לא מצאנו אנשי קשר</h3>
+          <p>נסו לשנות את החיפוש או לבחור קטגוריה אחרת.</p>
+        </div>
+      }
+    </section>
+  </div>
+</main>
+
+@if (isAddingContact) {
+  <app-add-contact
+    (saved)="addContact($event)"
+    (cancelled)="isAddingContact = false"
+  />
+}

@@ -1,0 +1,148 @@
+.dialog-backdrop {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: grid;
+  overflow-y: auto;
+  place-items: center;
+  padding: 24px;
+  background: rgba(31, 32, 54, 0.42);
+}
+
+.contact-dialog {
+  width: min(100%, 480px);
+  padding: 28px;
+  border: 1px solid #eeeff5;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(37, 39, 72, 0.2);
+  font-family: Arial, "Noto Sans Hebrew", sans-serif;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #7a70c8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dialog-header h2 {
+  margin: 0;
+  color: #292b40;
+  font-size: 22px;
+}
+
+.dialog-description {
+  margin: 8px 0 0;
+  color: #85879a;
+  font-size: 13px;
+}
+
+.close-button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  color: #85879a;
+  background: #f7f7fb;
+  font: inherit;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+form {
+  display: grid;
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  color: #515268;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+input:not([type="checkbox"]) {
+  width: 100%;
+  min-height: 43px;
+  padding: 0 12px;
+  border: 1px solid #e5e6ee;
+  border-radius: 10px;
+  outline: 0;
+  color: #38394c;
+  background: #fbfbfd;
+  font: inherit;
+  font-size: 13px;
+}
+
+input:not([type="checkbox"]):focus {
+  border-color: #9c92e0;
+  box-shadow: 0 0 0 3px rgba(113, 100, 200, 0.1);
+}
+
+.vip-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.vip-option input {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: #7164c8;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.form-actions button {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cancel-button {
+  color: #696b7e;
+  background: #f1f1f6;
+}
+
+.save-button {
+  color: #fff;
+  background: #7164c8;
+}
+
+.save-button:hover {
+  background: #5f53b4;
+}
+
+@media (max-width: 480px) {
+  .dialog-backdrop {
+    padding: 14px;
+  }
+
+  .contact-dialog {
+    padding: 22px 18px;
+  }
+}
